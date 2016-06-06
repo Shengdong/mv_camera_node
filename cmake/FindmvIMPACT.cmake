@@ -66,12 +66,12 @@ endmacro(mvIMPACT_REPORT_NOT_FOUND)
 # to system installs where both exist.
 get_filename_component(BLUEFOX2_DIR ${CMAKE_CURRENT_SOURCE_DIR} REALPATH)
 list(APPEND mvIMPACT_CHECK_INCLUDE_DIRS
-    /opt/mvIMPACT_acquire
+    /opt/mvIMPACT_Acquire
     ${BLUEFOX2_DIR}/mvIMPACT/include
     )
 execute_process(COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCH)
 list(APPEND mvIMPACT_CHECK_LIBRARY_DIRS
-    /opt/mvIMPACT_acquire/lib/${ARCH}
+    /opt/mvIMPACT_Acquire/lib/${ARCH}
     ${BLUEFOX2_DIR}/mvIMPACT/lib/${ARCH}
     )
 
