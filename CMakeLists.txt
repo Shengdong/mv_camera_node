@@ -5,7 +5,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 
 include_directories(${catkin_INCLUDE_DIRS}
-                    /opt/mvIMPACT_acquire
+                    /opt/mvIMPACT_Acquire
                     /usr/local/include
                     )
 
