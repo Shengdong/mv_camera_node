@@ -2,10 +2,6 @@
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "mv_camera");
-     
-    ros::NodeHandle nh;
-    
     mvIMPACT::acquire::DeviceManager devMgr;
     mvIMPACT::acquire::Device* pDev;
 
@@ -15,14 +11,14 @@ int main(int argc, char **argv)
     }
     else
     {
-       ROS_WARN("No device Connected");
+       std::cout << "No device Connected" << std::endl;
        return 1;
     }
 
     mvCamInterface m_cap(pDev);
-    if (!m_cap.init(nh))
+    if (!m_cap.init())
     {
-       ROS_WARN("Initialise device Failed");
+       std::cout << "Initialise device Failed" << std::endl;
        return 1;
     }
     m_cap.imageHandler();

@@ -1,6 +1,6 @@
 #include "mvCamInterface.h"
 #include <iostream>
-#include "sensor_msgs/Image.h"
+//#include "sensor_msgs/Image.h"
 
 
 mvCamInterface::mvCamInterface(mvIMPACT::acquire::Device* _dev)
@@ -9,7 +9,7 @@ mvCamInterface::mvCamInterface(mvIMPACT::acquire::Device* _dev)
 }
 
 bool
-mvCamInterface::init(ros::NodeHandle& nh)
+mvCamInterface::init(void)
 {
     try
     {
@@ -29,8 +29,8 @@ mvCamInterface::init(ros::NodeHandle& nh)
     cs->imageRequestTimeout_ms.write( 10000 ); 
     cs->expose_us.write(300);
     setFrameRate(50.0);
-    image_transport::ImageTransport it(nh);
-    m_imagePub = it.advertise("image_rect", 1);
+//    image_transport::ImageTransport it(nh);
+//    m_imagePub = it.advertise("image_rect", 1);
     return true;
 }
 
@@ -117,7 +117,7 @@ mvCamInterface::imageHandler(void)
         fi->imageRequestSingle();
     }
 
-    while(ros::ok())
+    while(true)
     {
         int requestNr = fi->imageRequestWaitFor(-1);
         if (fi->isRequestNrValid(requestNr))
@@ -127,9 +127,9 @@ mvCamInterface::imageHandler(void)
             {
                 cv::Mat temp(cv::Size(request->imageWidth.read()*request->imagePixelPitch.read(), request->imageHeight.read()), CV_8UC1, request->imageData.read());
                 temp.copyTo(m_image);       
-                m_image_ptr = cv_bridge::CvImage(std_msgs::Header(), "mono8", m_image).toImageMsg();
-                m_image_ptr->header.stamp = ros::Time::now();
-                m_imagePub.publish(m_image_ptr);              
+//                m_image_ptr = cv_bridge::CvImage(std_msgs::Header(), "mono8", m_image).toImageMsg();
+//                m_image_ptr->header.stamp = ros::Time::now();
+//                m_imagePub.publish(m_image_ptr);              
             }
             fi->imageRequestUnlock(requestNr);
             fi->imageRequestSingle();
